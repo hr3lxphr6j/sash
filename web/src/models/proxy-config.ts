@@ -25,14 +25,19 @@ export enum Protocol {
     Redis = "Redis"
 }
 
+export enum HealthCheckerType {
+    TCP = "TCP",
+    MySQL = "MySQL",
+    Redis = "Redis",
+    ATCP = "ATCP",
+}
+
 export enum LbPolicy {
     ROUND_ROBIN = "ROUND_ROBIN",
     LEAST_CONNECTION = "LEAST_CONNECTION",
     RANDOM = "RANDOM",
     CLUSTER_PROVIDED = "CLUSTER_PROVIDED"
 }
-
-export type Duration = string
 
 export interface Address {
     ip: string
@@ -55,7 +60,7 @@ export interface Action {
 }
 
 export interface ATCPChecker {
-    action: TCPChecker[]
+    action: Action[]
 }
 
 export interface MySQLChecker {
@@ -67,8 +72,8 @@ export interface RedisChecker {
 }
 
 export interface HealthCheck {
-    interval: Duration,
-    timeout: Duration,
+    interval: string,
+    timeout: string,
     fallThreshold: number,
     riseThreshold: number,
     tcpChecker?: TCPChecker,
@@ -79,9 +84,9 @@ export interface HealthCheck {
 
 export interface ServiceConfig {
     listener: Listener
-    healthCheck: HealthCheck
-    connectTimeout: Duration,
-    idleTimeout: Duration
+    healthCheck?: HealthCheck
+    connectTimeout: string,
+    idleTimeout: string
     lbPolicy: LbPolicy
     protocol: Protocol
     tcpOption?: object

@@ -18,6 +18,7 @@ import {ProxyConfig} from "../../models/proxy-config";
 import {GetProxyConfig, PutProxyConfig} from "../../api/api";
 import {Button, Form, Row, Spin} from "antd";
 import TextArea from "antd/es/input/TextArea";
+import ProxyConfigDetail from "../../components/ProxyConfig";
 
 interface ProxyConfigDetailPageState {
     loading: boolean
@@ -61,9 +62,10 @@ class ProxyConfigDetailPage extends React.Component<ProxyConfigDetailPageProps<R
     }
 
     render() {
-        const {loading} = this.state;
+        const {loading, proxyConfig} = this.state;
         return (
             <Fragment>
+                <ProxyConfigDetail proxyConfig={proxyConfig}/>
                 <Spin spinning={loading}>
                     <Form>
                         <Row>
